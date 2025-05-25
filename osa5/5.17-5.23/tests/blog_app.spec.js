@@ -1,12 +1,10 @@
 const { test, expect, beforeEach, describe } = require("@playwright/test");
 const { loginWith, createBlog } = require("./helper");
 
-const API_URL = process.env.API_URL || "http://localhost:3001";
-
 describe("Blog app", () => {
   beforeEach(async ({ page, request }) => {
-    await request.post(`${API_URL}/api/testing/reset`);
-    await request.post(`${API_URL}/api/users`, {
+    await request.post(`/api/testing/reset`);
+    await request.post(`/api/users`, {
       data: {
         name: "Matti Luukkainen",
         username: "mluukkai",
@@ -45,8 +43,8 @@ describe("Blog app", () => {
 
   describe("When logged in", () => {
     beforeEach(async ({ page, request }) => {
-      await request.post(`${API_URL}/api/testing/reset`);
-      await request.post(`${API_URL}/api/users`, {
+      await request.post(`/api/testing/reset`);
+      await request.post(`/api/users`, {
         data: {
           name: "Matti Luukkainen",
           username: "mluukkai",
@@ -94,7 +92,7 @@ describe("Blog app", () => {
 
       await page.getByRole("button", { name: "logout" }).click();
 
-      await request.post(`${API_URL}/api/users`, {
+      await request.post(`/api/users`, {
         data: {
           name: "Another User",
           username: "another",
